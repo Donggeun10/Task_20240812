@@ -1,0 +1,35 @@
+FROM python:3.12-bookworm
+LABEL authors="leedg17"
+
+#RUN apt update -y
+#RUN apt install -y gdb net-tools
+#RUN apt install -y python3 python3-pip
+
+#RUN sed 's/https/http/g' -i /etc/apk/repositories
+#RUN apk update && apk add gdb net-tools binutils curl
+
+# debian add user
+RUN adduser appuser
+RUN groupadd appgroup && usermod -aG appgroup appuser
+COPY test/requirements.txt /
+
+RUN pip install --upgrade pip && \
+    pip install --no-cache-dir -r /requirements.txt
+    #pip install --no-cache-dir FastAPI uvicorn pyinstaller sqlalchemy flatbuffers google-cloud-pubsub
+
+USER appuser
+
+WORKDIR /home/appuser
+COPY test/train/app/ test/train/app/
+COPY test/main.spec ./
+
+EXPOSE 9084
+ENV GOOGLE_CLOUD_PROJECT="nm-stg-usw2-crashreport"
+ENV PYTHONPATH="/home/appuser"
+
+#ENTRYPOINT ["/dist/main"]
+
+CMD ["--port", "9084"]
+ENTRYPOINT ["uvicorn", "test.train.app.application:app", "--host", "0.0.0.0"]
+#ENTRYPOINT ["top"]
+#kill -SIGSEGV %1
