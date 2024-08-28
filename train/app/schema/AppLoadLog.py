@@ -1,15 +1,15 @@
 from pydantic import BaseModel
 
 class AppLoadLogV3(BaseModel):
-    model : str
+    game_code : str
     os : str
     os_version : str
     crash_sdk_version : str
     app_version : str
     package_name : str
     user_key : str
+    model : str
     device_id : str
-    game_code : str
     geo : str
     city : str
     report_datetime : str

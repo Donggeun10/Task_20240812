@@ -5,7 +5,7 @@ from sqlalchemy.orm import sessionmaker, scoped_session
 from sqlalchemy.ext.declarative import declarative_base
 import sqlalchemy
 
-from test.train.app.configuration.LoggingConfig import stream_handler, \
+from train.app.configuration.LoggingConfig import stream_handler, \
   file_handler
 
 user = "db_user"
@@ -40,3 +40,10 @@ logger.addHandler(file_handler)
 def create_tables():
   Base.metadata.create_all(bind=engine)
   logger.debug("Tables created successfully")
+
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()

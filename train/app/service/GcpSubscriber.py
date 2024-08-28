@@ -6,7 +6,7 @@ from concurrent.futures.thread import ThreadPoolExecutor
 from google.cloud import pubsub_v1
 
 
-from test.train.app.configuration.LoggingConfig import stream_handler, \
+from train.app.configuration.LoggingConfig import stream_handler, \
     file_handler
 
 logger = logging.getLogger(__name__)

@@ -4,9 +4,9 @@ import os
 
 from google.cloud import pubsub_v1
 
-from test.train.app.configuration.LoggingConfig import stream_handler, \
+from train.app.configuration.LoggingConfig import stream_handler, \
     file_handler
-from test.train.app.domain.CrashReportMessage import InitMessage
+from train.app.domain.CrashReportMessage import InitMessage
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)

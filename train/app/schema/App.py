@@ -1,8 +1,8 @@
 from pydantic import BaseModel
 
 class app_base(BaseModel):
-    game_code : str
-    device_os : str
+    title_code : str
+    market_os : str
     display_name : str
     package_name : str
 

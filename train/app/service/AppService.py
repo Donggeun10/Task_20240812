@@ -1,8 +1,8 @@
 import logging
 
-from test.train.app.configuration.LoggingConfig import stream_handler, \
+from train.app.configuration.LoggingConfig import stream_handler, \
     file_handler
-from test.train.app.entity.App import App
+from train.app.entity.App import App
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
