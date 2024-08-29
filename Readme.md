@@ -14,12 +14,14 @@
 - SQLite
 - Docker
 - Swagger UI
+- pytest
 
 ## 2. Local 실행 테스트
 ```
 - uvicorn train.app.application:app --host 0.0.0.0 --port 9084
 - python train\app\application.py
   -  set PYTHONPATH=%PYTHONPATH%;%cd%
+- pip freeze > requirements.txt
 ```
 ## 3. pyinstaller 실행 파일 생성 - 윈도즈 환경
 ```

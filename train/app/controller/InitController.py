@@ -1,4 +1,4 @@
-
+import logging
 
 from fastapi import APIRouter
 from fastapi.params import Depends
@@ -7,6 +7,8 @@ from starlette.requests import Request
 from starlette.responses import Response
 
 from train.app import crud
+from train.app.configuration.FlatbuffersMessageConverter import FlatBuffersRoute
+from train.app.configuration.LoggingConfig import stream_handler, file_handler
 from train.app.configuration.WebConfig import application_vnd
 
 from train.app.database import get_db
@@ -19,6 +21,13 @@ router = APIRouter(
     prefix="/api/v1",
     tags=["init"],
 )
+
+router.route_class = FlatBuffersRoute
+
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
+logger.addHandler(stream_handler)
+logger.addHandler(file_handler)
 
 @router.post("/init", dependencies=[Depends(application_vnd)])
 async def init(request: Request, response: Response, db: Session = Depends(get_db)):
@@ -42,7 +51,8 @@ async def init(request: Request, response: Response, db: Session = Depends(get_d
         publish_message(f"edge.appload.{body.version.name}", body)
     else:
         response.headers["Retry-When"] = "never"
+        logger.debug("Game code not found : "+game_code)
         return "Game code not found"
 
-    # logger.debug("appload is finished "+check_point)
     return "OK"
+

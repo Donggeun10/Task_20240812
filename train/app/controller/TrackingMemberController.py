@@ -33,6 +33,14 @@ async def get_app_tracking_member(user_id: str, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="member not found")
     return member
 
-@router.post("/app-tracking-member")
+@router.post("/app-tracking-member",
+             responses={
+                201: {
+                    "content": {"application/json": {}},
+                    "description": "member is properly saved",
+                }
+})
 async def app_tracking_member(member: app_tracking_member_create, db: Session = Depends(get_db)):
-    return crud.save_app_tracking_member(db, member)
+    member =  crud.save_app_tracking_member(db, member)
+    if member is not None:
+        raise HTTPException(status_code=201, detail="member is properly saved")

@@ -7,8 +7,6 @@ stream_handler = logging.StreamHandler()
 stream_handler.setLevel(logging.DEBUG)
 stream_handler.setFormatter(formatter)
 
-file_handler = logging.FileHandler(filename="information.log")
+file_handler = logging.FileHandler(filename="app.log")
 file_handler.setLevel(logging.DEBUG)
 file_handler.setFormatter(formatter)
-
-

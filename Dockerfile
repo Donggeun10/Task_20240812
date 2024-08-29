@@ -10,22 +10,24 @@ COPY train/requirements.txt /
 
 RUN pip install --upgrade pip && \
     pip install --no-cache-dir -r /requirements.txt
-    #pip install --no-cache-dir FastAPI uvicorn pyinstaller sqlalchemy flatbuffers google-cloud-pubsub
+#RUN pip install --no-cache-dir httpx
 
 USER appuser
 
 WORKDIR /home/appuser
-COPY train/app/ train/app/
-COPY train/application.spec ./application.spec
+COPY --chown=appuser test/ test/
+COPY --chown=appuser user.db .
+COPY --chown=appuser train/app/ train/app/
+COPY --chown=appuser train/application.spec ./application.spec
 
 EXPOSE 9084
 ENV GOOGLE_CLOUD_PROJECT="nm-stg-usw2-crashreport"
 ENV PYTHONPATH="/home/appuser"
-
+#RUN pytest test/controller
 RUN pyinstaller application.spec
 
 #CMD ["--port", "9084"]
-#ENTRYPOINT ["python", "-m", "uvicorn", "test.train.app.application:app", "--host", "0.0.0.0"]
+#ENTRYPOINT ["python", "-m", "uvicorn", "train.app.application:app", "--host", "0.0.0.0"]
 
 FROM python:3.12-alpine
 
