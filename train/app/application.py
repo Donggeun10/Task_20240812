@@ -8,13 +8,13 @@ from fastapi import (FastAPI, Depends, Request)
 from fastapi.responses import RedirectResponse
 from sqlalchemy.orm import Session
 
-from train.app import crud, database
 from train.app.configuration.LoggingConfig import stream_handler, \
     file_handler
 from train.app.configuration.SecurityConfig import verification
+from train.app.configuration.database import get_db, create_tables
 from train.app.controller import TrackingMemberController, InitController
-from train.app.database import get_db
 from train.app.schema.Item import ItemCreate
+from train.app.service import crud
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
@@ -24,7 +24,7 @@ logger.addHandler(file_handler)
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # When service starts.
-    database.create_tables()
+    create_tables()
     logger.info("Service started.")
     yield
 

@@ -16,14 +16,13 @@ USER appuser
 
 WORKDIR /home/appuser
 COPY --chown=appuser test/ test/
-COPY --chown=appuser user.db .
 COPY --chown=appuser train/app/ train/app/
 COPY --chown=appuser train/application.spec ./application.spec
 
 EXPOSE 9084
 ENV GOOGLE_CLOUD_PROJECT="nm-stg-usw2-crashreport"
 ENV PYTHONPATH="/home/appuser"
-#RUN pytest test/controller
+RUN pytest test/controller
 RUN pyinstaller application.spec
 
 #CMD ["--port", "9084"]

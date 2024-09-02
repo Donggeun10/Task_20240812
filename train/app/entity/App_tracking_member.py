@@ -1,7 +1,7 @@
 import sqlalchemy.sql.sqltypes
 from sqlalchemy import Column, String, PrimaryKeyConstraint, func
 
-from train.app.database import Base
+from train.app.configuration.database import Base
 
 
 class app_tracking_member(Base):
@@ -9,6 +9,7 @@ class app_tracking_member(Base):
   title_code = Column(String(45))
   market_os = Column(String(45))
   user_id = Column(String(45))
+  user_name = Column(String(45))
   insert_timestamp = Column(sqlalchemy.DateTime, server_default=func.now())
   use_yn = Column(String(1) , default='Y')
 

@@ -4,6 +4,7 @@ class app_tracking_member_base(BaseModel):
     title_code : str
     market_os : str
     user_id : str
+    user_name : str
 
 class app_tracking_member_create(app_tracking_member_base):
 
@@ -11,7 +12,8 @@ class app_tracking_member_create(app_tracking_member_base):
         return {
             "title_code" : self.title_code,
             "market_os" : self.market_os,
-            "user_id" : self.user_id
+            "user_id" : self.user_id,
+            "user_name" : self.user_name
         }
 
 class app_tracking_member(app_tracking_member_base):

@@ -4,6 +4,8 @@
 - SQLAlchemy JPA 를 이용한 데이터 CRUD
 - ~~LockModeType.PESSIMISTIC_WRITE 를 이용한 데이터 동시성 제어~~
 - Docker 를 이용한 이미지 생성 및 실행
+- Pyinstaller 를 이용한 실행 파일 생성
+- Pytest 를 이용한 테스트 코드 작성
 
 ## 1. Frameworks And Tools
 - Python 3.12

@@ -9,26 +9,29 @@ from train.app.schema.App_tracking_member import app_tracking_member_create
 client = TestClient(app)
 
 def test_get_hello():
-    # basic authentication is required
-    token = make_basic_auth_token("robot", "play")
-    response = client.get("/hello", headers={"Authorization": f"Basic {token}"})
-    assert response.status_code == 200
+    with TestClient(app) as client:
+        # basic authentication is required
+        token = make_basic_auth_token("robot", "play")
+        response = client.get("/hello", headers={"Authorization": f"Basic {token}"})
+        assert response.status_code == 200
 
 
 def test_get_app_tracking_members():
-    response = client.get("/app-tracking-members")
-    assert response.status_code == 200
+    with TestClient(app) as client:
+        response = client.get("/app-tracking-members")
+        assert response.status_code == 200
 
 
 def test_post_app_tracking_member():
-    current_datetime = datetime.now()
-    current_date_time = current_datetime.strftime("%Y%m%d%H%M%S")
-    member = app_tracking_member_create(title_code="tc", market_os="mo", user_id="user_id_"+current_date_time)
+    with TestClient(app) as client:
+        current_datetime = datetime.now()
+        current_date_time = current_datetime.strftime("%Y%m%d%H%M%S")
+        member = app_tracking_member_create(title_code="tc", market_os="mo", user_id="user_id_"+current_date_time)
 
-    print("member.user_id : " + member.user_id)
-    response = client.post(url= "/app-tracking-member", json=member.to_dict(),
-                           headers={"Content-Type": "application/json"})
-    assert response.status_code == 201
+        print("member.user_id : " + member.user_id)
+        response = client.post(url= "/app-tracking-member", json=member.to_dict(),
+                               headers={"Content-Type": "application/json"})
+        assert response.status_code == 201
 
 
 # generate a basic authentication token

@@ -6,15 +6,13 @@ from sqlalchemy.orm import Session
 from starlette.requests import Request
 from starlette.responses import Response
 
-from train.app import crud
 from train.app.configuration.FlatbuffersMessageConverter import FlatBuffersRoute
 from train.app.configuration.LoggingConfig import stream_handler, file_handler
 from train.app.configuration.WebConfig import application_vnd
-
-from train.app.database import get_db
+from train.app.configuration.database import get_db
 from train.app.domain.CrashReportMessage import InitMessage
 from train.app.entity.App import App
-from train.app.service import AppService, InitService
+from train.app.service import AppService, InitService, crud
 from train.app.service.GcpPublisher import publish_message
 
 router = APIRouter(

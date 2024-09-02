@@ -1,7 +1,7 @@
 import sqlalchemy
 from sqlalchemy import Column, String, func, PrimaryKeyConstraint
 
-from train.app.database import Base
+from train.app.configuration.database import Base
 
 
 class App(Base):
