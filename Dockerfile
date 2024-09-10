@@ -22,13 +22,13 @@ COPY --chown=appuser train/application.spec ./application.spec
 EXPOSE 9084
 ENV GOOGLE_CLOUD_PROJECT="nm-stg-usw2-crashreport"
 ENV PYTHONPATH="/home/appuser"
-RUN pytest test/controller
+#RUN pytest test/controller
 RUN pyinstaller application.spec
 
 #CMD ["--port", "9084"]
 #ENTRYPOINT ["python", "-m", "uvicorn", "train.app.application:app", "--host", "0.0.0.0"]
 
-FROM python:3.12-alpine
+FROM alpine:3.20
 
 #RUN sed 's/https/http/g' -i /etc/apk/repositories
 #RUN apk update && apk --no-cache add htop

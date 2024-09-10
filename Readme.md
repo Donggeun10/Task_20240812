@@ -6,6 +6,7 @@
 - Docker 를 이용한 이미지 생성 및 실행
 - Pyinstaller 를 이용한 실행 파일 생성
 - Pytest 를 이용한 테스트 코드 작성
+- Basic Authentication 을 이용한 인증
 
 ## 1. Frameworks And Tools
 - Python 3.12
