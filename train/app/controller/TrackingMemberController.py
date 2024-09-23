@@ -46,7 +46,8 @@ async def app_tracking_member(member: app_tracking_member_create, db: Session = 
 
     return {"result":"member("+stored_member.user_id+") is properly inserted"}
 
-@router.put("/app-tracking-members/{user_id}",
+
+@router.put("/app-tracking-member/{user_id}",
             status_code = status.HTTP_202_ACCEPTED,
             responses={
                 202: {
@@ -61,7 +62,8 @@ async def get_app_tracking_member(user_id: str, member: app_tracking_member_crea
 
     return member
 
-@router.delete("/app-tracking-members/{user_id}",
+
+@router.delete("/app-tracking-member/{user_id}",
                status_code=status.HTTP_202_ACCEPTED,
                responses={
                    202: {

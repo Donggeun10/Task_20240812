@@ -72,8 +72,11 @@ def get_app(game_code : str, device_os : str):
 
 def update_app_tracking_member(db: Session, user_id : str, member_info : app_tracking_member_create):
     # Step 1: Retrieve the existing member and lock the row for update
+    # print("user_id : " + user_id + ", Retrieve the existing member and lock the row for update")
+    prepared_stmt = select(app_tracking_member).filter(app_tracking_member.user_id == user_id).with_for_update(nowait=True)
+    # print(prepared_stmt)
     member = db.execute(
-        select(app_tracking_member).filter(app_tracking_member.user_id == user_id).with_for_update()
+        prepared_stmt
     ).scalar_one_or_none()
 
     if member is None:
